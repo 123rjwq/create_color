@@ -18,13 +18,16 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        // Получение ссылки на кнопку для открытия диалогового окна выбора цвета
         val buttonOpenDialog = findViewById<Button>(R.id.buttonOpenDialog)
         buttonOpenDialog.setOnClickListener {
+            // Вызов метода для отображения диалогового окна выбора цвета
             showColorPickerDialog()
         }
     }
 
     private fun showColorPickerDialog() {
+        // Инициализация представления диалогового окна из XML
         val dialogView = layoutInflater.inflate(R.layout.dialog_color_picker, null)
 
         // Инициализация ползунков и текстовых полей
@@ -36,6 +39,7 @@ class MainActivity : AppCompatActivity() {
         val editTextBlue = dialogView.findViewById<EditText>(R.id.editTextBlue)
         val previewColorView = dialogView.findViewById<View>(R.id.previewColorView)
 
+        // Создание диалогового окна с настройками
         val dialog = AlertDialog.Builder(this)
             .setView(dialogView)
             .setPositiveButton("OK") { dialog, _ ->
@@ -59,16 +63,7 @@ class MainActivity : AppCompatActivity() {
             .create()
 
         dialog.show()
-/*
-        // Инициализация ползунков и текстовых полей
-        val seekBarRed = dialogView.findViewById<SeekBar>(R.id.seekBarRed)
-        val seekBarGreen = dialogView.findViewById<SeekBar>(R.id.seekBarGreen)
-        val seekBarBlue = dialogView.findViewById<SeekBar>(R.id.seekBarBlue)
-        val editTextRed = dialogView.findViewById<EditText>(R.id.editTextRed)
-        val editTextGreen = dialogView.findViewById<EditText>(R.id.editTextGreen)
-        val editTextBlue = dialogView.findViewById<EditText>(R.id.editTextBlue)
-        val previewColorView = dialogView.findViewById<View>(R.id.previewColorView)
-*/
+
         // Обработка изменения положения ползунков
         seekBarRed.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
@@ -80,7 +75,6 @@ class MainActivity : AppCompatActivity() {
             override fun onStopTrackingTouch(seekBar: SeekBar?) {}
         })
 
-        // Аналогично для seekBarGreen и seekBarBlue
         // Обработка изменения положения ползунков для seekBarGreen
         seekBarGreen.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
@@ -116,7 +110,6 @@ class MainActivity : AppCompatActivity() {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
         })
 
-        // Аналогично для editTextGreen и editTextBlue
         // Обработка изменения текстовых полей для editTextGreen
         editTextGreen.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
@@ -143,6 +136,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun updatePreviewColor(view: View, red: Int, green: Int, blue: Int) {
+        // Обновление цвета предварительного просмотра на основе выбранных компонентов цвета
         view.setBackgroundColor(Color.rgb(red, green, blue))
     }
 }
